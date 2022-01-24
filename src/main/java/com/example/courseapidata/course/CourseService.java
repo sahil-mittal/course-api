@@ -19,29 +19,29 @@ public class CourseService {
 //            new Topic("js","Spring Framework", "Description")
 //    ));
 
-    private List<Course> topics = new ArrayList<>();
+    private List<Course> courses = new ArrayList<>();
 
     public CourseService(CourseRepository courseRepository) {
         this.courseRepository = courseRepository;
     }
 
 
-    public List<Course> getAllTopics(){
-        List<Course> topics =new ArrayList<>();
-        courseRepository.findAll().forEach(topics::add);     //iterate the result of find all in an array list
-        return topics;
+    public List<Course> getAllCourses(String topicId){
+        List<Course> courses =new ArrayList<>();
+        courseRepository.findAll().forEach(courses::add);     //iterate the result of find all in an array list
+        return courses;
     }
 
-    public Course getTopic(String id){
+    public Course getCourse(String id){
         //return topics.stream().filter(t->t.getId().equals(id)).findFirst().get();
         return courseRepository.findById(id).get();
     }
 
-    public void addTopic(Course course) {
+    public void addCourse(Course course) {
         courseRepository.save(course);
     }
 
-    public void updateTopic(String id, Course course) {
+    public void updateCourse(Course course) {
 
 //        for (int i=0; i< topics.size(); i++) {
 //            Topic t = topics.get(i);
@@ -52,7 +52,7 @@ public class CourseService {
         courseRepository.save(course);
     }
 
-    public void deleteTopic(String id) {
+    public void deleteCourse(String id) {
 //        topics.removeIf(t->t.getId().equals(id));
         courseRepository.deleteById(id);
     }

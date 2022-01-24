@@ -1,7 +1,7 @@
 package com.example.courseapidata.course;
 
 
-import com.example.courseapidata.course.CourseService;
+import com.example.courseapidata.topic.Topic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -13,31 +13,33 @@ public class CourseController {
     @Autowired
     private CourseService courseService;
 
-    @RequestMapping("/course")
-    public List<Course> getAllCourse(){
+    @RequestMapping("/topics/{topicId}/courses")
+    public List<Course> getAllCourse(@PathVariable String topicId){
         //automatically gets converted to json at the time of sending
 
-        return courseService.getAllTopics();
+        return courseService.getAllCourses(topicId);
     }
 
-    @RequestMapping("/course/{id}")
+    @RequestMapping("/topics/{topicId}/courses/{id}")
     public Course getCourse(@PathVariable String id){
-        return courseService.getTopic(id);
+        return courseService.getCourse(id);
     }
 
-    @RequestMapping(method = RequestMethod.POST, value = "/course")
-    public void addCourse(@RequestBody Course course){
-        courseService.addTopic(course);
+    @RequestMapping(method = RequestMethod.POST, value = "/topics/{topicId}/courses")
+    public void addCourse(@RequestBody Course course, @PathVariable String topicId){
+        course.setTopic(new Topic(topicId, "", ""));
+        courseService.addCourse(course);
     }
 
-    @RequestMapping(method = RequestMethod.PUT, value = "/course/{id}")
-    public void updateCourse(@RequestBody Course course, @PathVariable String id){
-        courseService.updateTopic(id, course);
+    @RequestMapping(method = RequestMethod.PUT, value = "/topics/{topicId}/courses/{id}")
+    public void updateCourse(@RequestBody Course course, @PathVariable String id, @PathVariable String topicId){
+        course.setTopic(new Topic(topicId, "", ""));
+        courseService.updateCourse(course);
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/course/{id}")
+    @RequestMapping(method = RequestMethod.DELETE, value = "/topics/{topicId}/courses/{id}")
     public void deleteTopic(@PathVariable String id){
-        courseService.deleteTopic(id);
+        courseService.deleteCourse(id);
     }
 
 }
