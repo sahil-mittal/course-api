@@ -1,6 +1,5 @@
 package com.example.courseapidata.course;
 
-
 import com.example.courseapidata.topic.Topic;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
